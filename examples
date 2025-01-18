@@ -1,0 +1,117 @@
+<?php
+
+require_once 'AppNomuSalesQ.php';
+
+// Initialize the SDK with your API key
+$apiKey = 'your_api_key_here';
+$salesQ = new AppNomuSalesQ\AppNomuSalesQ($apiKey);
+
+try {
+    // Example 1: Sales Management
+    // Create a new sale
+    $sale = $salesQ->createSale([
+        'customer_id' => 123,
+        'sale_date' => '2025-01-18',
+        'payment_method' => 'cash',
+        'items' => [
+            [
+                'product_id' => 1,
+                'quantity' => 2,
+                'price' => 1000.00
+            ],
+            [
+                'product_id' => 2,
+                'quantity' => 1,
+                'price' => 500.00
+            ]
+        ]
+    ]);
+    echo "Sale created: " . print_r($sale, true) . "\n";
+
+    // Generate receipt
+    $receipt = $salesQ->generateReceipt($sale['id'], 'pdf');
+    echo "Receipt generated: " . print_r($receipt, true) . "\n";
+
+    // Get sales list with filters
+    $sales = $salesQ->getSales([
+        'start_date' => '2025-01-01',
+        'end_date' => '2025-01-18',
+        'customer_id' => 123
+    ]);
+    echo "Sales list: " . print_r($sales, true) . "\n";
+
+    // Example 2: Account Management
+    // Get account details
+    $account = $salesQ->getAccountDetails();
+    echo "Account details: " . print_r($account, true) . "\n";
+
+    // Update account details
+    $accountUpdate = $salesQ->updateAccountDetails([
+        'business_name' => 'My Store',
+        'phone' => '+256700000000',
+        'address' => 'Kampala, Uganda'
+    ]);
+    echo "Account updated: " . print_r($accountUpdate, true) . "\n";
+
+    // Example 3: Inventory Management
+    // Check low stock products
+    $lowStock = $salesQ->getLowStockProducts(10); // threshold of 10 items
+    echo "Low stock products: " . print_r($lowStock, true) . "\n";
+
+    // Update stock quantity
+    $stockUpdate = $salesQ->updateStockQuantity(1, 50); // Set product ID 1 to 50 units
+    echo "Stock updated: " . print_r($stockUpdate, true) . "\n";
+
+    // Example 4: Bulk Imports
+    // Import products
+    $productsImport = $salesQ->importProducts([
+        [
+            'name' => 'Product 1',
+            'price' => 1000.00,
+            'category' => 'Electronics',
+            'stock_quantity' => 50
+        ],
+        [
+            'name' => 'Product 2',
+            'price' => 500.00,
+            'category' => 'Accessories',
+            'stock_quantity' => 100
+        ]
+    ]);
+    echo "Products imported: " . print_r($productsImport, true) . "\n";
+
+    // Import customers
+    $customersImport = $salesQ->importCustomers([
+        [
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'phone' => '+256700000001'
+        ],
+        [
+            'name' => 'Jane Smith',
+            'email' => 'jane@example.com',
+            'phone' => '+256700000002'
+        ]
+    ]);
+    echo "Customers imported: " . print_r($customersImport, true) . "\n";
+
+    // Import expenses
+    $expensesImport = $salesQ->importExpenses([
+        [
+            'date' => '2025-01-15',
+            'amount' => 1000.00,
+            'category' => 'Utilities',
+            'description' => 'Electricity bill'
+        ],
+        [
+            'date' => '2025-01-16',
+            'amount' => 500.00,
+            'category' => 'Office Supplies',
+            'description' => 'Stationery'
+        ]
+    ]);
+    echo "Expenses imported: " . print_r($expensesImport, true) . "\n";
+
+} catch (\Exception $e) {
+    echo "Error: " . $e->getMessage() . "\n";
+}
