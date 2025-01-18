@@ -1,1 +1,29 @@
+<?php
+
+namespace AppNomu\SalesQ;
+
+use AppNomu\SalesQ\Exception\ApiException;
+use AppNomu\SalesQ\Exception\AuthenticationException;
+use AppNomu\SalesQ\Exception\ValidationException;
+
+class Client
+{
+    private $apiKey;
+    private $baseUrl;
+    private $timeout = 30;
+
+    /**
+     * Initialize the AppNomu SalesQ SDK
+     * 
+     * @param string $apiKey Your API key
+     * @param string $baseUrl Optional base URL for the API
+     */
+    public function __construct($apiKey, $baseUrl = 'https://api.appnomu.com/v1')
+    {
+        $this->apiKey = $apiKey;
+        $this->baseUrl = rtrim($baseUrl, '/');
+    }
+
+    // ... [All existing methods from AppNomuSalesQ.php]
+}
 
