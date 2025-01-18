@@ -1,0 +1,33 @@
+<?php
+
+namespace AppNomu\SalesQ\Tests;
+
+use AppNomu\SalesQ\Client;
+use PHPUnit\Framework\TestCase;
+
+class ClientTest extends TestCase
+{
+    private $client;
+
+    protected function setUp(): void
+    {
+        $this->client = new Client('test_api_key', 'https://api.test.appnomu.com/v1');
+    }
+
+    public function testCreateSale()
+    {
+        // Add your test implementation
+    }
+
+    public function testGetProducts()
+    {
+        // Add your test implementation
+    }
+
+    public function testGenerateReceipt()
+    {
+        // Add your test implementation
+    }
+
+    // Add more test methods for other features
+}
