@@ -1,0 +1,6 @@
+cd /path/to/sdk
+git init
+git add .
+git commit -m "Initial SDK release"
+git remote add origin https://github.com/appnomu/salesq-sdk.git
+git push -u origin main
